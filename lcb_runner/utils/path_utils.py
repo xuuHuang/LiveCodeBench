@@ -1,4 +1,5 @@
 import pathlib
+import os
 
 from lcb_runner.lm_styles import LanguageModel, LMStyle
 from lcb_runner.utils.scenarios import Scenario
@@ -16,7 +17,8 @@ def get_cache_path(model_repr:str, args) -> str:
     scenario: Scenario = args.scenario
     n = args.n
     temperature = args.temperature
-    path = f"cache/{model_repr}/{scenario}_{n}_{temperature}.json"
+    dataset = ("_" + os.path.splitext(os.path.basename(args.dataset))[0]) if args.dataset is not None else ""
+    path = f"cache/{model_repr}/{scenario}_{n}_{temperature}{dataset}.json"
     ensure_dir(path)
     return path
 
@@ -25,8 +27,9 @@ def get_output_path(model_repr:str, args) -> str:
     scenario: Scenario = args.scenario
     n = args.n
     temperature = args.temperature
+    dataset = ("_" + os.path.splitext(os.path.basename(args.dataset))[0]) if args.dataset is not None else ""
     cot_suffix = "_cot" if args.cot_code_execution else ""
-    path = f"output/{model_repr}/{scenario}_{n}_{temperature}{cot_suffix}.json"
+    path = f"output/{model_repr}/{scenario}_{n}_{temperature}{cot_suffix}{dataset}.json"
     ensure_dir(path)
     return path
 

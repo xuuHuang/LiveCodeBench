@@ -52,7 +52,7 @@ def build_prompt_benchmark(
         if not_fast:
             benchmark = load_code_generation_dataset_not_fast(args.release_version)
         else:
-            benchmark = load_code_generation_dataset(args.release_version)
+            benchmark = load_code_generation_dataset(args.release_version, args.dataset)
         benchmark = sorted(benchmark, key=lambda x: x.question_id)
         format_prompt = format_prompt_generation
     elif scenario == Scenario.testoutputprediction:

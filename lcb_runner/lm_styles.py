@@ -27,6 +27,9 @@ class LMStyle(Enum):
     QwQ = "QwQ"
 
     LLaMa3 = "LLaMa3"
+    InternLM = "InternLM"
+    Gemma2 = "Gemma2"
+    AyaExpanse = "AyaExpanse"
 
 
 @dataclass
@@ -573,6 +576,48 @@ LanguageModelList: list[LanguageModel] = [
         LMStyle.CodeQwenInstruct,
         datetime(2024, 6, 30),
         link="https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct",
+    ),
+    LanguageModel(
+        "internlm/internlm2_5-7b-chat",
+        "internlm2.5-7B-chat",
+        LMStyle.InternLM,
+        datetime(2024, 7, 1),
+        link="https://huggingface.co/internlm/internlm2_5-7b-chat",
+    ),
+    LanguageModel(
+        "internlm/internlm2_5-20b-chat",
+        "internlm2.5-20B-chat",
+        LMStyle.InternLM,
+        datetime(2024, 7, 1),
+        link="https://huggingface.co/internlm/internlm2_5-20b-chat",
+    ),
+    LanguageModel(
+        "google/gemma-2-9b-it",
+        "gemma2-9b-it",
+        LMStyle.Gemma2,
+        datetime(2024, 7, 1),
+        link="https://huggingface.co/google/gemma-2-9b-it",
+    ),
+    LanguageModel(
+        "google/gemma-2-27b-it",
+        "gemma2-27b-it",
+        LMStyle.Gemma2,
+        datetime(2024, 7, 1),
+        link="https://huggingface.co/google/gemma-2-27b-it",
+    ),
+    LanguageModel(
+        "CohereForAI/aya-expanse-8b",
+        "Aya-Expanse-8B",
+        LMStyle.AyaExpanse,
+        datetime(2024, 10, 23),
+        link="https://huggingface.co/CohereForAI/aya-expanse-8b",
+    ),
+    LanguageModel(
+        "CohereForAI/aya-expanse-32b",
+        "Aya-Expanse-32B",
+        LMStyle.AyaExpanse,
+        datetime(2024, 10, 23),
+        link="https://huggingface.co/CohereForAI/aya-expanse-32b",
     ),
 ]
 
