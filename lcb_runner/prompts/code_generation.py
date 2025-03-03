@@ -314,6 +314,75 @@ def format_prompt_generation(
         prompt = get_base_model_question_template_answer(question)
         return prompt
 
+    if LanguageModelStyle == LMStyle.InternLM:
+        chat_messages = [
+            {
+                "role": "system",
+                "content": PromptConstants.SYSTEM_MESSAGE_GENERIC,
+            },
+        ]
+        chat_messages += [
+            {
+                "role": "user",
+                "content": get_generic_question_template_answer(question),
+            },
+        ]
+        from transformers import AutoTokenizer
+
+        tokenizer = AutoTokenizer.from_pretrained(
+            "internlm/internlm2_5-7b-chat", padding_side="left", use_fast=False, trust_remote_code=True
+        )
+        return tokenizer.apply_chat_template(
+            chat_messages,
+            tokenize=False,
+            add_generation_prompt=True,
+            truncation=False,
+            padding=False,
+        )
+
+    if LanguageModelStyle == LMStyle.Gemma2:
+        chat_messages = [
+            {
+                "role": "user",
+                "content": PromptConstants.SYSTEM_MESSAGE_GENERIC + "\n\n" + get_generic_question_template_answer(question),
+            },
+        ]
+        from transformers import AutoTokenizer
+
+        tokenizer = AutoTokenizer.from_pretrained(
+            "google/gemma-2-9b-it", padding_side="left"
+        )
+        return tokenizer.apply_chat_template(
+            chat_messages,
+            tokenize=False,
+            add_generation_prompt=True,
+            truncation=False,
+            padding=False,
+        )
+
+    if LanguageModelStyle == LMStyle.AyaExpanse:
+        chat_messages = [
+            {
+                "role": "system",
+                "content": PromptConstants.SYSTEM_MESSAGE_GENERIC,
+            },
+        ]
+        chat_messages += [
+            {
+                "role": "user",
+                "content": get_generic_question_template_answer(question),
+            },
+        ]
+        from transformers import AutoTokenizer
+        tokenizer = AutoTokenizer.from_pretrained("CohereForAI/aya-expanse-8b", padding_side="left")
+        return tokenizer.apply_chat_template(
+            chat_messages,
+            tokenize=False,
+            add_generation_prompt=True,
+            truncation=False,
+            padding=False,
+        )
+
     raise NotImplementedError(
         f"LanguageModelStyle {LanguageModelStyle} not implemented"
     )

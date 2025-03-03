@@ -55,7 +55,8 @@ def build_prompt_benchmark(
             benchmark = load_code_generation_dataset(
                 args.release_version,
                 start_date=args.start_date,
-                end_date=args.end_date
+                end_date=args.end_date,
+                name=args.dataset,
             )
         benchmark = sorted(benchmark, key=lambda x: x.question_id)
         format_prompt = format_prompt_generation
